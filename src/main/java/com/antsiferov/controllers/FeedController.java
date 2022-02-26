@@ -8,6 +8,11 @@ public class FeedController {
 
     @GetMapping("/feed")
     public String feed() {
-        return "mainpage";
+        return "feed";
+    }
+
+    @GetMapping("/new")
+    public String newPost() {
+        return "new";
     }
 }
