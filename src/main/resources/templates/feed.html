@@ -7,10 +7,19 @@
 </head>
 <body class="text-center">
 
-    <div>
-        <button class="btn btn-success" type="submit" onclick='window.location.href="/new"'>Написать новый пост</button>
-    </div>
+<div class="btn-toolbar mt-5 mb-5" style="display: flex; margin: auto; text-align: center; align-items: center; justify-content: center">
 
+    <form method="post" th:action="'/new'">
+        <input type="hidden">
+        <button class="btn btn-success" type="submit">Написать новый пост</button>
+    </form>
+
+    <form method="post" th:action="'/logout'">
+        <input type="hidden"/>
+        <button class="btn btn-danger">Выйти</button>
+    </form>
+
+</div>
 
 </body>
 </html>
