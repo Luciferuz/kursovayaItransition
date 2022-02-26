@@ -1,26 +1,23 @@
 package com.antsiferov.entity;
-
 import lombok.Data;
 import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "blogs_table")
-public class Post {
+@Table(name = "users_table")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
-    private String date;
+    private String name;
 
     @Column
-    private Integer likes;
+    private String password;
 
     @Column
-    private Integer dislikes;
+    private String role;
 
-    @Column
-    private String pictureURL;
 }
