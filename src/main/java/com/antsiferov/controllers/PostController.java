@@ -19,7 +19,7 @@ public class PostController {
     public String newPost(@RequestParam String subject, @RequestParam String postText) {
         Post newPost = new Post(subject, postText);
         postRepository.save(newPost);
-        return "feed";
+        return "redirect:/feed";
     }
 }
 
