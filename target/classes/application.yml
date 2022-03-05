@@ -1,0 +1,13 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAVO3RZLXVCIFHMB72
+      secretKey: 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
+    region:
+      static: "eu-west-2"
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: itra

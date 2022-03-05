@@ -8,7 +8,7 @@
 <body style="align-items: center;">
 
 <div class="container mt-5">
-    <form action="/new" method="post">
+    <form action="/new" enctype="multipart/form-data" method="post">
 
         <div class="form-floating">
             <input class="form-control" id="subject" name="subject" placeholder="Тема поста"
@@ -28,7 +28,11 @@
 
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
-                <a class="text-muted" href="/nothingyet">Добавить картинку</a>
+
+                <form enctype="multipart/form-data" method="post" >
+                    <input type="file" name="pictures" multiple="" accept="image/*,image/jpeg">
+                </form>
+
             </div>
 
             <div class="col-4 text-center">
