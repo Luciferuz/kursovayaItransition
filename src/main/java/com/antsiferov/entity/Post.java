@@ -1,7 +1,6 @@
 package com.antsiferov.entity;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,9 +40,6 @@ public class Post {
     @Column
     private String author;
 
-    //потом перенести в .yml
-    private String mainURLPart = "https://antsiferov.s3.eu-west-2.amazonaws.com/";
-
     public Post(String subject, String text, MultipartFile[] pictures) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         this.author = auth.getName();
@@ -63,6 +59,8 @@ public class Post {
         ArrayList<String> URLs = new ArrayList<>();
         for (MultipartFile picture : pictures) {
             String pictureName = picture.getOriginalFilename();
+            //потом перенести в .yml
+            String mainURLPart = "https://antsiferov.s3.eu-west-2.amazonaws.com/";
             String URL = mainURLPart + pictureName.replace(" ", "+");
             URLs.add(URL);
         }
