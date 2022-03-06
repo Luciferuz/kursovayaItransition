@@ -28,4 +28,5 @@ public class FeedController {
     public String newPost() {
         return "new";
     }
+
 }

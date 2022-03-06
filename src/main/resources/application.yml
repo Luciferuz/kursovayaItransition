@@ -10,4 +10,7 @@ cloud:
 
 application:
   bucket:
-    name: itra
+    name: antsiferov
+
+url:
+  address: https://antsiferov.s3.eu-west-2.amazonaws.com/

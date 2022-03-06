@@ -1,12 +1,14 @@
 package com.antsiferov.entity;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -39,7 +41,10 @@ public class Post {
     @Column
     private String author;
 
-    public Post(String subject, String text){
+    @Value("${url.address}")
+    private String mainURLPart;
+
+    public Post(String subject, String text, MultipartFile[] pictures) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         this.author = auth.getName();
         this.date = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(new Date());
@@ -47,9 +52,33 @@ public class Post {
         this.subject = subject;
         this.likes = 0;
         this.dislikes = 0;
+        this.pictureURL = separateURLs(correctURLs(pictures));
     }
 
     public Post() {
 
+    }
+
+    private ArrayList<String> correctURLs(MultipartFile[] pictures) {
+        ArrayList<String> URLs = new ArrayList<>();
+        for (MultipartFile picture : pictures) {
+            String pictureName = picture.getOriginalFilename();
+            String URL = mainURLPart + pictureName.replace(" ", "+");
+            URLs.add(URL);
+        }
+        return URLs;
+    }
+
+    private String separateURLs(ArrayList<String> URLs) {
+        StringBuilder separatedFormatURL = new StringBuilder();
+        for (String url : URLs) {
+            separatedFormatURL.append(url);
+            separatedFormatURL.append(" ");
+        }
+        return separatedFormatURL.toString();
+    }
+
+    public String[] getPictureURL() {
+        return pictureURL.split("\\s");
     }
 }
