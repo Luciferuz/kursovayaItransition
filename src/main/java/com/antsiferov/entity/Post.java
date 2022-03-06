@@ -41,8 +41,8 @@ public class Post {
     @Column
     private String author;
 
-    @Value("${url.address}")
-    private String mainURLPart;
+    //потом перенести в .yml
+    private String mainURLPart = "https://antsiferov.s3.eu-west-2.amazonaws.com/";
 
     public Post(String subject, String text, MultipartFile[] pictures) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -43,9 +43,7 @@
         </div>
     </div>
 
-
     <div class="row mb-2 mt-2" th:each="post: ${posts}">
-
 
         <div class="col">
 
@@ -58,33 +56,13 @@
                     <div class="mb-1 text-muted" th:text="${post.getDate()}"></div>
                     <p class="card-text mb-auto" th:text="${post.getText()}"></p>
                 </div>
-                <!--                картинку надо сюда еще-->
-                <!--                <img class="card-img-right flex-auto d-none d-md-block"-->
-                <!--                     style="width: 200px; height: 250px;"-->
-                <!--                     th:src="${post.getPictureURL()}">-->
 
-<!--                <div >-->
-                    <img class="card-img-right flex-auto d-none d-md-block"
-                         style="width: 200px; height: 250px;"
-                         th:each="url: ${post.getPictureURL()}"
-                         th:src="${url}">
-<!--                </div>-->
-
-
-
-<!--                <img class="card-img-right flex-auto d-none d-md-block"-->
-<!--                     style="width: 200px; height: 250px;"-->
-<!--                     src="https://antsiferov.s3.eu-west-2.amazonaws.com/Frog.jpg">-->
-
-<!--                <img class="card-img-right flex-auto d-none d-md-block"-->
-<!--                     style="width: 200px; height: 250px;"-->
-<!--                     src="https://antsiferov.s3.eu-west-2.amazonaws.com/Beach.jpg ">-->
-
-
+                <img class="card-img-right flex-auto d-none d-md-block"
+                     style="width: 200px; height: 250px;"
+                     th:each="url: ${post.getPictureURL()}"
+                     th:src="${url}">
             </div>
-
         </div>
-
     </div>
 </div>
 
@@ -97,7 +75,6 @@
         <p class="mb-0">Курсовой проект Анциферова Сергея Александровича.</p>
     </div>
 </main>
-
 
 </body>
 </html>
