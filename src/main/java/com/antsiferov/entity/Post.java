@@ -48,7 +48,9 @@ public class Post {
         this.subject = subject;
         this.likes = 0;
         this.dislikes = 0;
-        this.pictureURL = separateURLs(correctURLs(pictures));
+        //потом перенести в .yml ссылку
+        this.pictureURL = pictures[0].isEmpty() ?
+                "https://i.pinimg.com/originals/17/fb/b5/17fbb5ee9f0545d194bc88ed7e0cfc6d.jpg" : separateURLs(correctURLs(pictures));
     }
 
     public Post() {
