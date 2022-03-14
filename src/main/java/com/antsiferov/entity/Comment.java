@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "comments_table")
+//@Table(name = "comments_table")
 public class Comment {
 
     @Id
@@ -23,6 +23,14 @@ public class Comment {
     @Column
     private String text;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_name")
+//    private String user;
+
     @Column
     private String author;
 
@@ -30,11 +38,12 @@ public class Comment {
 //    @JoinColumn(name = "post_id")
 //    private Post post;
 
-    public Comment(String text) {
+    public Comment(String text, Post post) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         this.author = auth.getName();
         this.date = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(new Date());
         this.text = text;
+        this.post = post;
     }
 
     public Comment() {
