@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +38,10 @@ public class Post {
 
     @Column
     private String author;
+
+
+//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+//    private Set<Comment> comments;
 
     public Post(String subject, String text, MultipartFile[] pictures) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
