@@ -1,8 +1,11 @@
 package com.antsiferov.entity;
 
+import com.antsiferov.Constants;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Data
@@ -22,7 +25,14 @@ public class User {
     @Column
     private String role;
 
+    @Column
+    private String date;
+
+    @Column
+    private String lastLogin;
+
     public User(String name, String password) {
+        this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.name = name;
         this.password = password;
         this.role = "ROLE_USER";

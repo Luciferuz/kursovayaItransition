@@ -16,12 +16,16 @@ public class CustomUser implements UserDetails {
     private String name;
     private String password;
     private String role;
+    private String date;
+    private String lastLogin;
 
     public CustomUser(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.password = user.getPassword();
         this.role = user.getRole();
+        this.date = user.getDate();
+        this.lastLogin = user.getLastLogin();
         this.rolesCollection = Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 

@@ -1,5 +1,6 @@
 package com.antsiferov.entity;
 
+import com.antsiferov.Constants;
 import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,11 +34,10 @@ public class Comment {
     @JoinColumn(name = "author_id")
     private User user;
 
-
     public Comment(String text, Post post, User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         this.author = auth.getName();
-        this.date = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(new Date());
+        this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.text = text;
         this.post = post;
         this.user = user;

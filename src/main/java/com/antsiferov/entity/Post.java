@@ -1,14 +1,15 @@
 package com.antsiferov.entity;
 
+import com.antsiferov.Constants;
 import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Data
@@ -40,21 +41,20 @@ public class Post {
     @Column
     private String author;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private User user;
 
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
-//    private Set<Comment> comments;
-
-    public Post(String subject, String text, MultipartFile[] pictures) {
+    public Post(String subject, String text, User user, MultipartFile[] pictures) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         this.author = auth.getName();
-        this.date = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(new Date());
+        this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.text = text;
         this.subject = subject;
         this.likes = 0;
         this.dislikes = 0;
-        //потом перенести в .yml ссылку
-        this.pictureURL = pictures[0].isEmpty() ?
-                "https://i.pinimg.com/originals/17/fb/b5/17fbb5ee9f0545d194bc88ed7e0cfc6d.jpg" : separateURLs(correctURLs(pictures));
+        this.user = user;
+        this.pictureURL = pictures[0].isEmpty() ? Constants.defaultImg : separateURLs(correctURLs(pictures));
     }
 
     public Post() {
