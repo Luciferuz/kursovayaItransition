@@ -21,11 +21,13 @@ public class StorageService {
     private AmazonS3 amazonS3;
 
     public void uploadFiles(MultipartFile[] multipartFiles) {
-        for (MultipartFile current : multipartFiles) {
-            File fileObj = convertToFile(current);
-            String filename = fileObj.getName();
-            amazonS3.putObject(new PutObjectRequest(bucketName, filename, fileObj));
-            fileObj.delete();
+        if (!multipartFiles[0].isEmpty()) {
+            for (MultipartFile current : multipartFiles) {
+                File fileObj = convertToFile(current);
+                String filename = fileObj.getName();
+                amazonS3.putObject(new PutObjectRequest(bucketName, filename, fileObj));
+                fileObj.delete();
+            }
         }
     }
 

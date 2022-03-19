@@ -5,6 +5,7 @@ import com.antsiferov.entity.Post;
 import com.antsiferov.entity.User;
 import com.antsiferov.repository.PostRepository;
 import com.antsiferov.repository.UsersRepository;
+import com.antsiferov.services.PostService;
 import com.antsiferov.services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,18 +24,21 @@ public class PostController {
     private StorageService storageService;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private UsersRepository usersRepository;
+
 
     @PostMapping("/new")
     public String newPost(@RequestParam String subject,
-                          @RequestParam String postText,
+                          @RequestParam String text,
                           @RequestParam(value = "pictures", required = false) MultipartFile[] pictures,
                           @AuthenticationPrincipal CustomUser user) {
-        if (!pictures[0].isEmpty()) {
-            storageService.uploadFiles(pictures);
-        }
+        storageService.uploadFiles(pictures);
         User author = usersRepository.findUserById(user.getId());
-        Post newPost = new Post(subject, postText, author, pictures);
+        String URLs = postService.getURLs(pictures);
+        Post newPost = new Post(subject, text, author, URLs);
         postRepository.save(newPost);
         return "redirect:/feed";
     }
