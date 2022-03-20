@@ -44,8 +44,7 @@ public class Post {
     private User user;
 
     public Post(String subject, String text, User user, String pictureURL) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        this.author = auth.getName();
+        this.author = user.getName();
         this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.text = text;
         this.subject = subject;

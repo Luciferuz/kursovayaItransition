@@ -35,8 +35,8 @@ public class Comment {
     private User user;
 
     public Comment(String text, Post post, User user) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        this.author = auth.getName();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        this.author = user.getName();
         this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.text = text;
         this.post = post;

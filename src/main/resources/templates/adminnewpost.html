@@ -10,19 +10,29 @@
 <div class="container mt-5">
 
     <div class="blog-main">
-        <h3 class="pb-3 mb-4 mt-4 font-bold border-bottom">Новый пост</h3>
+        <h3 class="pb-3 mb-3 mt-4 font-bold border-bottom">Новый пост</h3>
     </div>
 
-    <form action="/new" enctype="multipart/form-data" method="post">
+    <form action="/admin/new" enctype="multipart/form-data" method="post">
+        <div class="d-flex align-items-center">
+            <div class="form-group">
+                <label for="select">Выберите пользователя</label>
+                <select class="form-control" id="select" name="selectedAuthor">
+                    <div th:each="user: ${users}">
+                        <option th:text="${user.getName()}" th:value="${user.getId()}"></option>
+                    </div>
+                </select>
+            </div>
+        </div>
+        <br>
         <div class="form-floating">
-            <input class="form-control" id="subject" name="subject" placeholder="Тема поста"
-                   required="required"
+            <input class="form-control" id="subject" name="subject" placeholder="Тема поста" required="required"
                    type="text">
             <label for="subject">Введите здесь тему поста, она будет заголовком</label>
         </div>
         <br>
         <div class="form-group">
-            <label for="text">Напишите здесь то, о чем думаете прямо сейчас</label>
+            <label for="text">Напишите здесь то, о чем думает выбранный пользователь</label>
             <textarea class="form-control" id="text" name="text" required="required" rows="4"></textarea>
         </div>
         <br>
