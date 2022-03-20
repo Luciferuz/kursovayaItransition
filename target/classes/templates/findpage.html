@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.0/examples/blog/" rel="canonical">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <title>Поиск по сайту</title>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1" th:if="${ #authorization.expression('isAuthenticated()') }">
+                <a class="text-muted" href="/logout">Выйти</a>
+            </div>
+            <div class="col-4 pt-1" th:if="${ #authorization.expression('isAnonymous()') }">
+                <a class="btn btn-sm btn-outline-secondary" href="/login">Войти</a>
+            </div>
+            <div class="col text-center">
+                <a class="btn btn-sm btn-outline-secondary" href="/feed">Вернуться к ленте</a>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <a class="text-muted" href="/find">
+                    <svg class="mx-3" fill="none" height="20" stroke="currentColor" stroke-linecap="round"
+                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10.5" cy="10.5" r="7.5"></circle>
+                        <line x1="21" x2="15.8" y1="21" y2="15.8"></line>
+                    </svg>
+                </a>
+                <a class="btn btn-sm btn-outline-secondary" href="/lk"
+                   th:if="${ #authorization.expression('isAuthenticated()') }">Личный кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <form method="post" th:action="'/find'">
+        <div class="d-flex mt-2 justify-content-start align-items-center">
+            <div class="form-floating flex-grow-1 m-2">
+                <input class="form-control" id="text" name="text"
+                       required="required" type="text">
+                <label for="text">Введите текст для поиска</label>
+            </div>
+            <button class="btn btn-success" type="submit">Найти</button>
+        </div>
+    </form>
+
+    <div class="blog-main">
+        <h3 class="pb-3 mb-4 mt-4 font-bold border-bottom" th:text="${textlabel}"></h3>
+    </div>
+
+    <div class="row mb-2 mt-2" th:each="post: ${searchResultsPosts}">
+        <div class="col">
+            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <a class="d-inline-block mb-2 text-primary" th:text="${post.getAuthor()}"
+                       th:href="${'/lk/'+post.getUser().getId()}"></a>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="${'/feed/'+post.getId()}" th:text="${post.getSubject()}"></a>
+                    </h3>
+                    <div class="mb-1 text-muted" th:text="${post.getDate()}"></div>
+                    <p class="card-text mb-auto" th:text="${post.getText()}"></p>
+                </div>
+                <img class="card-img-right flex-auto d-none d-md-block"
+                     style="width: 200px; height: 250px;"
+                     th:each="url: ${post.getPictureURL()}"
+                     th:src="${url}">
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-main">
+        <h3 class="pb-3 mb-4 mt-4 font-bold border-bottom">Найденные комментарии</h3>
+    </div>
+
+    <div class="row mb-2 mt-2" th:each="comment: ${searchResultsComments}">
+        <div class="col">
+            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <h3 class="d-inline-block mb-2 text-primary">
+                        <a th:href="${'/feed/'+comment.getPost().getId()}"
+                           th:text="'Тема поста: ' + ${comment.getPost().getSubject()}"></a>
+                    </h3>
+                    <div class="mb-1 text-muted" th:text="${comment.getDate()}"></div>
+                    <h5 class="mb-0 text-dark" th:text="${comment.getText()}"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--    <div class="card">-->
+    <!--        <div class="d-flex p-2 justify-content-center align-items-center">-->
+    <!--            <form method="get" th:action="'/admin/new'">-->
+    <!--                <button class="btn btn-warning m-2 p-2" type="submit">Написать пост от имени пользователя</button>-->
+    <!--            </form>-->
+    <!--            <form method="get" th:action="'/admin/comment'">-->
+    <!--                <button class="btn btn-warning m-2 p-2" type="submit">Написать коммент от имени пользователя</button>-->
+    <!--            </form>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <br>
+
+
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

@@ -1,13 +1,20 @@
 package com.antsiferov.services;
 
 import com.antsiferov.Constants;
+import com.antsiferov.entity.Post;
+import com.antsiferov.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostService {
+
+    @Autowired
+    private PostRepository postRepository;
 
     public String getURLs(MultipartFile[] pictures){
         return pictures[0].isEmpty() ? Constants.defaultImg : separateURLs(correctURLs(pictures));
@@ -33,4 +40,7 @@ public class PostService {
         return separatedFormatURL.toString();
     }
 
+    public List<Post> search(String text) {
+        return postRepository.search(text);
+    }
 }

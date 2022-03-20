@@ -14,7 +14,6 @@
     </div>
 
     <form action="/admin/new" enctype="multipart/form-data" method="post">
-
         <div class="d-flex align-items-center">
             <div class="form-group">
                 <label for="select">Выберите пользователя</label>
@@ -25,23 +24,18 @@
                 </select>
             </div>
         </div>
-
         <br>
-
         <div class="form-floating">
-            <input class="form-control" id="subject" name="subject" placeholder="Тема поста" required="required" type="text">
+            <input class="form-control" id="subject" name="subject" placeholder="Тема поста" required="required"
+                   type="text">
             <label for="subject">Введите здесь тему поста, она будет заголовком</label>
         </div>
-
         <br>
-
         <div class="form-group">
             <label for="text">Напишите здесь то, о чем думает выбранный пользователь</label>
             <textarea class="form-control" id="text" name="text" required="required" rows="4"></textarea>
         </div>
-
         <br>
-
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
                 <form enctype="multipart/form-data" method="post">

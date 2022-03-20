@@ -22,4 +22,8 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     @Query("UPDATE Post post SET post.subject = ?2, post.text = ?3, post.pictureURL = ?4 WHERE post.id = ?1")
     void updatePost(Long id, String subject, String text, String pictureURL);
 
+    @Transactional
+    @Query(value = "select * from posts_table pt where `text` like %?1% or subject like %?1% or author like %?1%", nativeQuery = true)
+    List<Post> search(String text);
+
 }
