@@ -12,3 +12,14 @@ application:
   bucket:
     name: antsiferov
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 335207099712-s06ka5s0ako05c8bd98jkiic0uel3bop.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
