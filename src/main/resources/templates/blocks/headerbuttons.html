@@ -1,0 +1,38 @@
+<div th:fragment="headerbuttons">
+    <main class="blog-header py-3" role="main">
+        <div class="d-flex justify-content-between">
+            <div class="p-2">
+                <a class="text-muted" href="/logout"
+                   th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{logout}"></a>
+                <a class="btn btn-sm btn-outline-secondary" href="/"
+                   th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{login}"></a>
+            </div>
+            <div>
+                <a class="btn btn-sm btn-outline-secondary m-2" href="/new"
+                   th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{newPostLabel}"></a>
+                <a class="btn btn-sm btn-outline-secondary m-2" href="/feed" th:text="#{feed}"></a>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex m-2">
+                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/admin}"
+                       th:if="${ #authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}"
+                       th:text="#{admin}"></a>
+                </div>
+                <div class="d-flex mt-2 mb-2">
+                    <a class="btn btn-sm btn-outline-secondary" href="/lk"
+                       th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{lk}"></a>
+                </div>
+                <div class="d-flex mt-2">
+                    <a class="text-muted" href="/find">
+                        <svg class="mx-3" fill="none" height="20" stroke="currentColor" stroke-linecap="round"
+                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10.5" cy="10.5" r="7.5"></circle>
+                            <line x1="21" x2="15.8" y1="21" y2="15.8"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -12,6 +12,8 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByName(String name);
 
+    User findUserByName(String name);
+
     User findUserById(Long id);
 
     @Transactional
@@ -23,4 +25,6 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     @Modifying
     @Query(value = "DELETE FROM users_table WHERE id = ?1", nativeQuery = true)
     void deleteUserById(Long id);
+
+
 }

@@ -1,11 +1,11 @@
 <div th:fragment="footer">
     <main class="container" role="main">
-    <div class="blog-main">
-        <h3 class="pb-3 mb-4 font-italic border-bottom"></h3>
-    </div>
-    <div class="p-3 mb-3 bg-light rounded">
-        <h4 class="font-italic">About</h4>
-        <p class="mb-0">Курсовой проект Анциферова Сергея Александровича.</p>
-    </div>
+        <div class="blog-main">
+            <h3 class="pb-3 mb-4 font-italic border-bottom"></h3>
+        </div>
+        <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic" th:text="#{about}"></h4>
+            <p class="mb-0" th:text="#{coursework}"></p>
+        </div>
     </main>
 </div>

@@ -31,14 +31,25 @@ public class User {
     @Column
     private String lastLogin;
 
+    @Column
+    private String source;
+
     public User(String name, String password) {
         this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.name = name;
         this.password = password;
         this.role = "ROLE_USER";
+        this.source = "Default";
     }
 
     public User() {
+    }
+
+    public User(String name){
+        this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
+        this.name = name;
+        this.role = "ROLE_USER";
+        this.source = "Google";
     }
 
 }

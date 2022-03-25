@@ -8,15 +8,14 @@ import com.antsiferov.repository.CommentRepository;
 import com.antsiferov.repository.PostRepository;
 import com.antsiferov.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Collections;
 import java.util.List;
-
 
 @Controller
 public class UserPageController {
@@ -36,8 +35,9 @@ public class UserPageController {
     }
 
     @GetMapping("/lk")
-    public String lk(Model model, @AuthenticationPrincipal CustomUser customUser) {
-        return findUserPage(model, customUser.getId());
+    public String lk(Model model, Authentication authentication) {
+        User current = usersRepository.findUserByName(authentication.getName());
+        return findUserPage(model, current.getId());
     }
 
     private String findUserPage(Model model, Long userId) {

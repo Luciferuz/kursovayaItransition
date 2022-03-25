@@ -8,6 +8,7 @@ import com.antsiferov.repository.CommentRepository;
 import com.antsiferov.repository.PostRepository;
 import com.antsiferov.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +28,11 @@ public class CommentsController {
     private UsersRepository usersRepository;
 
     @PostMapping("/feed/{itemId}/comment")
-    public String addComment(@AuthenticationPrincipal CustomUser user, @RequestParam String text, @PathVariable("itemId") Long postId) {
+    public String addComment(Authentication authentication,
+                             @RequestParam String text,
+                             @PathVariable("itemId") Long postId) {
         Post currentPost = postRepository.findPostById(postId);
-        User author = usersRepository.findUserById(user.getId());
+        User author = usersRepository.findUserByName(authentication.getName());
         Comment comment = new Comment(text, currentPost, author);
         commentRepository.save(comment);
         return "redirect:/feed/{itemId}";

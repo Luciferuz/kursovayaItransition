@@ -8,6 +8,7 @@ import com.antsiferov.repository.UsersRepository;
 import com.antsiferov.services.PostService;
 import com.antsiferov.services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,22 +22,21 @@ public class PostController {
     private PostRepository postRepository;
 
     @Autowired
+    private UsersRepository usersRepository;
+
+    @Autowired
     private StorageService storageService;
 
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private UsersRepository usersRepository;
-
-
     @PostMapping("/new")
     public String newPost(@RequestParam String subject,
                           @RequestParam String text,
                           @RequestParam(value = "pictures", required = false) MultipartFile[] pictures,
-                          @AuthenticationPrincipal CustomUser user) {
+                          Authentication authentication) {
         storageService.uploadFiles(pictures);
-        User author = usersRepository.findUserById(user.getId());
+        User author = usersRepository.findUserByName(authentication.getName());
         String URLs = postService.getURLs(pictures);
         Post newPost = new Post(subject, text, author, URLs);
         postRepository.save(newPost);

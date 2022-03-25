@@ -2,6 +2,7 @@ package com.antsiferov.services;
 
 import com.antsiferov.Constants;
 import com.antsiferov.entity.CustomUser;
+import com.antsiferov.entity.User;
 import com.antsiferov.interfaces.UsersInterface;
 import com.antsiferov.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,10 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UsersService implements UsersInterface, ApplicationListener<AuthenticationSuccessEvent> {
@@ -34,9 +35,12 @@ public class UsersService implements UsersInterface, ApplicationListener<Authent
         updateLastLogin(username);
     }
 
-
     private void updateLastLogin(String username) {
         DateFormat df = new SimpleDateFormat(Constants.dateFormat);
         usersRepository.setLastLogin(df.format(new Date()), username);
+    }
+
+    public Optional<User> findUserByName(String username) {
+        return usersRepository.findByName(username);
     }
 }
