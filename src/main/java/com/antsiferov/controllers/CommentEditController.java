@@ -27,4 +27,5 @@ public class CommentEditController {
         Long postId = commentService.findCommentById(commentId).getPost().getId();
         return "redirect:/feed/" + postId;
     }
+
 }

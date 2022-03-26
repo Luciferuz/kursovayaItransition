@@ -10,7 +10,7 @@ public class CustomOAuth2User implements OAuth2User {
 
     private OAuth2User oAuth2User;
 
-    public CustomOAuth2User(OAuth2User oAuth2User){
+    public CustomOAuth2User(OAuth2User oAuth2User) {
         this.oAuth2User = oAuth2User;
     }
 

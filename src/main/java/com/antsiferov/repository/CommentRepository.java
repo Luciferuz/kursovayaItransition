@@ -1,7 +1,6 @@
 package com.antsiferov.repository;
 
 import com.antsiferov.entity.Comment;
-import com.antsiferov.entity.Post;
 import com.antsiferov.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

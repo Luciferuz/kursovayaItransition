@@ -55,7 +55,6 @@ public class Post {
     }
 
     public Post() {
-
     }
 
     public String[] getPictureURL() {

@@ -37,4 +37,5 @@ public class FindController {
         model.addAttribute("textlabel", "Результаты поиска для: " + text);
         return "findpage";
     }
+
 }

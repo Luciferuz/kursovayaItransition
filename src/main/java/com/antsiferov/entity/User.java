@@ -42,14 +42,14 @@ public class User {
         this.source = "Default";
     }
 
-    public User() {
-    }
-
-    public User(String name){
+    public User(String name) {
         this.date = new SimpleDateFormat(Constants.dateFormat).format(new Date());
         this.name = name;
         this.role = "ROLE_USER";
         this.source = "Google";
+    }
+
+    public User() {
     }
 
 }

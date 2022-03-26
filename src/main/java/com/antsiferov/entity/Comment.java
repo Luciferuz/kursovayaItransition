@@ -2,8 +2,6 @@ package com.antsiferov.entity;
 
 import com.antsiferov.Constants;
 import lombok.Data;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;

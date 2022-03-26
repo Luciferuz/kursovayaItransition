@@ -7,12 +7,15 @@
 </head>
 <body>
 <div align="center" class="container mt-5" id="home_toolbar">
-    <a class="btn btn-success" id="loginGoogle" th:href="@{/oauth2/authorization/google}" th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{signGoogle}"></a>
-    <button class="btn btn-success" id="login" onclick='window.location.href="/login"' th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{login}"></button>
+    <a class="btn btn-success" id="loginGoogle" th:href="@{/oauth2/authorization/google}"
+       th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{signGoogle}"></a>
+    <button class="btn btn-success" id="login" onclick='window.location.href="/login"'
+            th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{login}"></button>
     <button class="btn btn-outline-success" id="feed" onclick='window.location.href="/feed"' th:text="#{feed}"></button>
-    <button class="btn btn-success" id="register" onclick='window.location.href="/register"' th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{register}"></button>
+    <button class="btn btn-success" id="register" onclick='window.location.href="/register"'
+            th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{register}"></button>
     <button class="btn btn-danger" onclick='window.location.href="/logout"'
-       th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{logout}"></button>
+            th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{logout}"></button>
     <a class="btn btn-info" th:text="#{currentLanguage}" href="/changelanguage"></a>
 </div>
 <footer th:insert="blocks/footer :: footer"></footer>

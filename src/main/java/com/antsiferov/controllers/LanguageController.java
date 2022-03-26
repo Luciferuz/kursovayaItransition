@@ -9,7 +9,7 @@ import java.util.Locale;
 public class LanguageController {
 
     @GetMapping("/changelanguage")
-    public String changeLanguage(Locale locale){
+    public String changeLanguage(Locale locale) {
         String newLanguage;
         if (locale.toString().equals("en_EN")) {
             newLanguage = "ru_RU";

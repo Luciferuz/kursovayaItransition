@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-//@EnableOAuth2Sso
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -32,33 +31,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf()
                 .disable()
-                .authorizeRequests()
+                    .authorizeRequests()
                     .antMatchers("/register/**").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/**", "/home/**", "/feed/**", "/lk/**", "/find", "/login", "/oauth2/**", "/changelanguage", "/error").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
-//                    .loginPage("/login")
                     .defaultSuccessUrl("/feed")
                     .permitAll()
                 .and()
                     .oauth2Login()
-//                    .loginPage("/login")
                     .defaultSuccessUrl("/feed")
                     .userInfoEndpoint().userService(oAuth2UserService)
                     .and()
                     .successHandler(oAuth2LoginSuccessHandler)
-//                    .oauth2Login()
-//                    .loginPage("/logingoogle")
-//                    .defaultSuccessUrl("/feed")
-//                    .permitAll()
                 .and()
                     .logout()
                     .permitAll()
                     .logoutSuccessUrl("/")
                 .and()
-                .exceptionHandling().accessDeniedPage("/error");
+                    .exceptionHandling().accessDeniedPage("/error");
     }
 
     @Override
@@ -70,16 +63,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public PrincipalExtractor principalExtractor() {
-//        return map -> {
-//            String name = (String) map.get("name");
-//            User user = usersRepository.findByName(name).orElseGet(()-> new User(name));
-//            usersRepository.save(user);
-//            return usersService.loadUserByUsername(name);
-//        };
-//    }
-
 
 }
