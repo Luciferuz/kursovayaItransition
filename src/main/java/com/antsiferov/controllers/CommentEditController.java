@@ -1,7 +1,7 @@
 package com.antsiferov.controllers;
 
 import com.antsiferov.entity.Comment;
-import com.antsiferov.repository.CommentRepository;
+import com.antsiferov.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,22 +12,19 @@ import org.springframework.web.bind.annotation.*;
 public class CommentEditController {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @GetMapping("")
     public String editComment(Model model, @PathVariable("id") Long commentId) {
-        Comment comment = commentRepository.findCommentById(commentId);
+        Comment comment = commentService.findCommentById(commentId);
         model.addAttribute("comment", comment);
         return "editcomment";
     }
 
     @PostMapping("")
     public String saveEditedComment(@PathVariable("id") Long commentId, @RequestParam String text) {
-        commentRepository.updateCommentText(commentId, text);
-        Long postId = commentRepository.findCommentById(commentId).getPost().getId();
+        commentService.updateCommentText(commentId, text);
+        Long postId = commentService.findCommentById(commentId).getPost().getId();
         return "redirect:/feed/" + postId;
     }
 }
-
-
-

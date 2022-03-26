@@ -1,7 +1,7 @@
 package com.antsiferov.config;
 
 import com.antsiferov.services.CustomOAuth2UserService;
-import com.antsiferov.services.UsersService;
+import com.antsiferov.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
     @Autowired
     private CustomOAuth2UserService oAuth2UserService;
@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/register/**").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/**", "/home/**", "/feed/**", "/lk/**", "/find", "/login", "/oauth2/**", "/changelanguage").permitAll()
+                    .antMatchers("/**", "/home/**", "/feed/**", "/lk/**", "/find", "/login", "/oauth2/**", "/changelanguage", "/error").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -56,12 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/");
+                    .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/error");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(usersService);
+        auth.userDetailsService(userService);
     }
 
     @Bean

@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface UsersRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByName(String name);
 
@@ -25,6 +25,5 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     @Modifying
     @Query(value = "DELETE FROM users_table WHERE id = ?1", nativeQuery = true)
     void deleteUserById(Long id);
-
 
 }

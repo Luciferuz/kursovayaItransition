@@ -27,4 +27,9 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
     @Query(value = "select * from comment c where text like %?1% or author like %?1%", nativeQuery = true)
     List<Comment> search(String text);
 
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM comment WHERE author_id = ?1", nativeQuery = true)
+    void deleteUserComments(Long id);
+
 }

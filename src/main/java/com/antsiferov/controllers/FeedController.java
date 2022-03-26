@@ -2,8 +2,8 @@ package com.antsiferov.controllers;
 
 import com.antsiferov.entity.Comment;
 import com.antsiferov.entity.Post;
-import com.antsiferov.repository.CommentRepository;
-import com.antsiferov.repository.PostRepository;
+import com.antsiferov.services.CommentService;
+import com.antsiferov.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +17,14 @@ import java.util.List;
 public class FeedController {
 
     @Autowired
-    private PostRepository postRepository;
+    private PostService postService;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @GetMapping("/feed")
     public String feed(Model model) {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postService.findAll();
         Collections.reverse(posts);
         model.addAttribute("posts", posts);
         return "feed";
@@ -37,8 +37,8 @@ public class FeedController {
 
     @GetMapping("/feed/{itemId}")
     public String showPost(Model model, @PathVariable("itemId") Long id) {
-        Post post = postRepository.findPostById(id);
-        List<Comment> comments = commentRepository.findAllCommentsByPostId(id);
+        Post post = postService.findPostById(id);
+        List<Comment> comments = commentService.findAllCommentsByPostId(id);
         Collections.reverse(comments);
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);

@@ -26,4 +26,9 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     @Query(value = "select * from posts_table pt where `text` like %?1% or subject like %?1% or author like %?1%", nativeQuery = true)
     List<Post> search(String text);
 
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM posts_table WHERE author_id = ?1", nativeQuery = true)
+    void deleteUserPosts(Long id);
+
 }

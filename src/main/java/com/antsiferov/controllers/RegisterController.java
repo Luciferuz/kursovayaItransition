@@ -1,7 +1,7 @@
 package com.antsiferov.controllers;
 
 import com.antsiferov.entity.User;
-import com.antsiferov.repository.UsersRepository;
+import com.antsiferov.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserService userService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -27,9 +27,8 @@ public class RegisterController {
     public String addUser(@RequestParam String name, @RequestParam String password) {
         String encryptedPwd = passwordEncoder.encode(password);
         User user = new User(name, encryptedPwd);
-        usersRepository.save(user);
+        userService.save(user);
         return "redirect:/home";
     }
-
 
 }

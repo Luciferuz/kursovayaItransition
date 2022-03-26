@@ -1,7 +1,6 @@
 package com.antsiferov.controllers;
 
 import com.antsiferov.entity.Post;
-import com.antsiferov.repository.PostRepository;
 import com.antsiferov.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class PostEditController {
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
     private PostService postService;
 
     @GetMapping("")
     public String editPost(Model model, @PathVariable("id") Long postId) {
-        Post post = postRepository.findPostById(postId);
+        Post post = postService.findPostById(postId);
         model.addAttribute("post", post);
         return "editpost";
     }
@@ -32,7 +28,7 @@ public class PostEditController {
                                  @RequestParam String text,
                                  @RequestParam(value = "pictures", required = false) MultipartFile[] pictures) {
         String URLs = postService.getURLs(pictures);
-        postRepository.updatePost(postId, subject, text, URLs);
+        postService.updatePost(postId, subject, text, URLs);
         return "redirect:/feed/" + postId;
     }
 }

@@ -19,7 +19,7 @@
                            th:href="${'/lk/'+post.getUser().getId()}"></a>
                     </div>
                     <div th:if="${ #authorization.expression('isAuthenticated()') and #strings.contains(#authentication.name, post.getAuthor())}">
-                        <a th:href="${'/post/edit/'+post.getId()}" th:text="#{editYour}"></a>
+                        <a th:href="${'/post/edit/'+post.getId()}" th:text="#{edit}"></a>
                     </div>
                 </div>
                 <h3 class="mb-0 text-dark" th:text="${post.getSubject()}"></h3>

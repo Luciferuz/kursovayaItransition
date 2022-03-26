@@ -2,8 +2,8 @@ package com.antsiferov.config;
 
 import com.antsiferov.entity.CustomOAuth2User;
 import com.antsiferov.entity.User;
-import com.antsiferov.repository.UsersRepository;
-import com.antsiferov.services.UsersService;
+import com.antsiferov.repository.UserRepository;
+import com.antsiferov.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -18,17 +18,17 @@ import java.io.IOException;
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
         String username = oAuth2User.getName();
-        if (!usersService.findUserByName(username).isPresent()) {
-            usersRepository.save(new User(username));
+        if (!userService.findByName(username).isPresent()) {
+            userRepository.save(new User(username));
         }
         super.onAuthenticationSuccess(request, response, authentication);
     }

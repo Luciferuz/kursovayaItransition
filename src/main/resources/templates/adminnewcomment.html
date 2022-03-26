@@ -13,7 +13,7 @@
     <form action="/admin/comment" enctype="multipart/form-data" method="post">
         <div class="d-flex align-items-center">
             <div class="form-group">
-                <label for="selectAuthor" th:text="#{chooseUSer}"></label>
+                <label for="selectAuthor" th:text="#{chooseUser}"></label>
                 <select class="form-control" id="selectAuthor" name="selectedAuthor">
                     <div th:each="user: ${users}">
                         <option th:text="${user.getName()}" th:value="${user.getId()}"></option>
