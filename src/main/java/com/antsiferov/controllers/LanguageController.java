@@ -18,4 +18,5 @@ public class LanguageController {
         }
         return "redirect:/home/?lang=" + newLanguage;
     }
+
 }

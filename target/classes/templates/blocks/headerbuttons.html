@@ -6,6 +6,7 @@
                    th:if="${ #authorization.expression('isAuthenticated()') }" th:text="#{logout}"></a>
                 <a class="btn btn-sm btn-outline-secondary" href="/"
                    th:if="${ #authorization.expression('isAnonymous()') }" th:text="#{login}"></a>
+                <a class="btn btn-sm btn-outline-secondary" th:text="#{currentLanguage}" href="/changelanguage"></a>
             </div>
             <div>
                 <a class="btn btn-sm btn-outline-secondary m-2" href="/new"
